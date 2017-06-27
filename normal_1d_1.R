@@ -74,11 +74,15 @@ while (i <= mun) {
 mus <- mus[(mun / 2 + 1):mun]
 
 # This graph should be almost linear
+# qqnorm shows how well data fits the standard normal distribution
+# by plotting data quantiles against theoretical ones
+# We normalize mus using its sample mean and standard deviation  
 qqnorm((mus - mean(mus)) / sd(mus))
 
 # 1) mu_true is the true value of mu
 # 2) mu contains the final value of mu, which should be close to mu_true
-# because the posterior variance is small
-# 3) the mean of mus is the mean of the obtained sample, so it should be almost mu_true
+#    because the posterior variance is small
+# 3) the mean of mus is the mean of the obtained sample,
+#    so it should be almost mu_true
 # 4) the standard deviation of mus should be approximately (n+1)^(-1)
 c(mu_true, mu, mean(mus), sd(mus))
