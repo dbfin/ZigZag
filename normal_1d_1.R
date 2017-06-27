@@ -84,5 +84,5 @@ qqnorm((mus - mean(mus)) / sd(mus))
 #    because the posterior variance is small
 # 3) the mean of mus is the mean of the obtained sample,
 #    so it should be almost mu_true
-# 4) the standard deviation of mus should be approximately (n+1)^(-1)
+# 4) the standard deviation of mus should be approximately (n+1)^(-2)
 c(mu_true, mu, mean(mus), sd(mus))
