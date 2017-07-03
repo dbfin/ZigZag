@@ -2,7 +2,7 @@
 alpha <- runif(1)
 
 # The number of mu samples we want
-xyn <- 10000
+xyn <- 25000
 
 # Algorithm
 
@@ -93,12 +93,11 @@ while (i <= xyn) {
 xs <- xs[(xyn / 2 + 1):xyn]
 ys <- ys[(xyn / 2 + 1):xyn]
 
-# This graph should be almost linear
+# These graphs should be almost linear
 # qqnorm shows how well data fits the standard normal distribution
 # by plotting data quantiles against theoretical ones
-# We normalize xs and ys using their sample means and standard deviations  
-qqnorm((xs - mean(xs)) / sd(xs))
-qqnorm((ys - mean(ys)) / sd(ys))
+qqnorm(xs)
+qqnorm(ys)
 
 # We also report alpha and the sample correlation
 c(alpha, cor(xs, ys))
