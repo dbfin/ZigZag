@@ -1,0 +1,277 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass amsart
+\use_default_options true
+\begin_removed_modules
+eqs-within-sections
+figs-within-sections
+\end_removed_modules
+\begin_modules
+theorems-ams
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Zig-Zag and Dimensionality
+\end_layout
+
+\begin_layout Section
+The convergence of 1D normal distribution as a function of variance.
+\end_layout
+
+\begin_layout Standard
+We use the Zig-Zag algorithm to simulate 1D normal distributions having
+ zero means and different variances, and study how fact the process converges
+ to the target distribution depending on the variance.
+\end_layout
+
+\begin_layout Subsection
+Criteria of convergence
+\end_layout
+
+\begin_layout Standard
+The scale of values corresponding to a normal distribution depends on the
+ variance of the distribution, so it is not clear how to compare convergence
+ for different variances.
+ One approach is to consider several functions, and compare the ergodic
+ average to the theoretical one.
+ The problem of scaling arises in this approach as well.
+ For example, if we take 
+\begin_inset Formula $f=x^{2}$
+\end_inset
+
+, then for 
+\begin_inset Formula $N(0,\sigma^{2})$
+\end_inset
+
+, 
+\begin_inset Formula 
+\[
+\pi_{\sigma}(f)=\sigma^{2}.
+\]
+
+\end_inset
+
+If for one distribution, say, 
+\begin_inset Formula $\sigma^{2}=100$
+\end_inset
+
+, and for another 
+\begin_inset Formula $\sigma^{2}=1$
+\end_inset
+
+, then if the empirical value is within, say, 
+\begin_inset Formula $0.5$
+\end_inset
+
+ of the theoretical one, this looks pretty close to the true value in the
+ second case, but not in the first one.
+\end_layout
+
+\begin_layout Standard
+For this reason, given a process 
+\begin_inset Formula $X(t)$
+\end_inset
+
+ for 
+\begin_inset Formula $N(0,\sigma^{2})$
+\end_inset
+
+, 
+\begin_inset Formula $t\in[0,T]$
+\end_inset
+
+, and a function 
+\begin_inset Formula $f(x)$
+\end_inset
+
+, we consider the following relative measure of convergence: 
+\begin_inset Formula 
+\[
+\nu_{\sigma}(f,T)=\left|\tfrac{\int_{0}^{T}f(X(t))dt-\pi_{\sigma}(f)}{\pi_{\sigma}(f)}\right|.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+An algorithm to compare rates of convergence
+\end_layout
+
+\begin_layout Standard
+We generate a Zig-Zag process 
+\begin_inset Formula $X(t)$
+\end_inset
+
+ for 
+\begin_inset Formula $N(0,\sigma^{2})$
+\end_inset
+
+.
+ After obtaining any switching point at time 
+\begin_inset Formula $t=T$
+\end_inset
+
+, we calculate the integral of each 
+\begin_inset Formula $f$
+\end_inset
+
+ from a set of functions.
+ We then calculate 
+\begin_inset Formula $\nu_{\sigma}(f,T)$
+\end_inset
+
+, and consider its maximum value 
+\begin_inset Formula $\nu_{\sigma}(T)$
+\end_inset
+
+ for different 
+\begin_inset Formula $f$
+\end_inset
+
+.
+ We stop the process when 
+\begin_inset Formula $\nu_{\sigma}(T)$
+\end_inset
+
+ becomes less than a predetermined 
+\begin_inset Formula $\epsilon>0$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+The value of 
+\begin_inset Formula $T$
+\end_inset
+
+ when we stop the process is going to be a random value, so we can repeat
+ this process several times for a given 
+\begin_inset Formula $\sigma$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+We may as well consider different values of 
+\begin_inset Formula $\epsilon$
+\end_inset
+
+, and repeat the whole process for each one.
+\end_layout
+
+\begin_layout Standard
+After collecting enough statistics for a given 
+\begin_inset Formula $\sigma$
+\end_inset
+
+, we consider another 
+\begin_inset Formula $\sigma$
+\end_inset
+
+, and repeat the process.
+\end_layout
+
+\begin_layout Standard
+In the end, we are going to have the empirical distributions of the stopping
+ times for different values of 
+\begin_inset Formula $\sigma$
+\end_inset
+
+ (and, maybe, different values of 
+\begin_inset Formula $\epsilon$
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+We can then draw their distributions in the same graph, compare their means
+ and variances etc.
+\end_layout
+
+\begin_layout Subsubsection
+Particular details of the algorithm
+\end_layout
+
+\begin_layout Subsection
+Theoretical considerations and discussion of results
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_body
+\end_document
