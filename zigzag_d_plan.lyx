@@ -155,7 +155,7 @@ For this reason, given a process
 , we consider the following relative measure of convergence: 
 \begin_inset Formula 
 \[
-\nu_{\sigma}(f,T)=\left|\tfrac{\int_{0}^{T}f(X(t))dt-\pi_{\sigma}(f)}{\pi_{\sigma}(f)}\right|.
+\nu_{\sigma}(f,T)=\left|\tfrac{\tfrac{1}{T}\int_{0}^{T}f(X(t))dt-\pi_{\sigma}(f)}{\pi_{\sigma}(f)}\right|.
 \]
 
 \end_inset
@@ -262,7 +262,7 @@ We can then draw their distributions in the same graph, compare their means
 \end_layout
 
 \begin_layout Subsubsection
-Particular details of the algorithm
+Specific choices for the algorithm
 \end_layout
 
 \begin_layout Standard
@@ -279,7 +279,7 @@ We consider the following
 \end_inset
 
 , 
-\begin_inset Formula $|x|^{3}$
+\begin_inset Formula $\tfrac{1}{x^{2}}$
 \end_inset
 
 , 
@@ -307,7 +307,7 @@ For
 \end_inset
 
 , 
-\begin_inset Formula $2\sqrt{\tfrac{2}{\pi}}\sigma^{3}$
+\begin_inset Formula $-\tfrac{1}{\sigma^{2}}$
 \end_inset
 
 , 
@@ -351,6 +351,279 @@ Next, we fix the variance to
 
  to see how the convergence time depends on how close we want our estimation
  to be to the true distribution.
+\end_layout
+
+\begin_layout Subsubsection
+Where to stop
+\end_layout
+
+\begin_layout Standard
+We consider the values of integrals at switching points only.
+ Further, we find the first switching point where all measures of convergence
+ are less than the given 
+\begin_inset Formula $\epsilon$
+\end_inset
+
+ for all 
+\begin_inset Formula $f$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Regarding the choice of the first such point, an alternative would be to
+ consider a time from which the measures become smaller than 
+\begin_inset Formula $\epsilon$
+\end_inset
+
+.
+ However, this is not possible, as there is always maybe tiny but still
+ positive probability that at some point in the future the integral for
+ some 
+\begin_inset Formula $f$
+\end_inset
+
+ will deviate from the target value by more than 
+\begin_inset Formula $\epsilon$
+\end_inset
+
+.
+ Instead, we consider a set of different 
+\begin_inset Formula $f$
+\end_inset
+
+ to ensure that at the first time the overall measure is good enough the
+ distribution is indeed close to the target one.
+\end_layout
+
+\begin_layout Standard
+Regarding the choice of considering switching points only, first of all,
+ it was made to simplify the algorithm.
+ However, it can be also justified by the idea that if the process have
+ indeed converged to the target one, then after a point in the middle of
+ an interval where the measure becomes less than 
+\begin_inset Formula $\epsilon$
+\end_inset
+
+, there will be a switching point also having the measure less than 
+\begin_inset Formula $\epsilon$
+\end_inset
+
+, and if this does not happen, than that middle point was more like an accident
+ than the fact that we have convergence.
+\end_layout
+
+\begin_layout Standard
+Another point is that in applications the Zig-Zag algorithm always stops
+ at a switching point, for example, after generating a specific number of
+ them, so ensuring convergence at switching points makes sense.
+\end_layout
+
+\begin_layout Subsubsection
+The Zig-Zag process for 
+\begin_inset Formula $N(0,\sigma^{2})$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We have 
+\begin_inset Formula 
+\begin{align*}
+\Psi(x) & =\tfrac{1}{2\sigma^{2}}x^{2},\\
+\Psi'(x) & =\tfrac{1}{\sigma^{2}}x,
+\end{align*}
+
+\end_inset
+
+and for a process starting at 
+\begin_inset Formula $(x_{0},\theta_{0})$
+\end_inset
+
+ and 
+\begin_inset Formula $t_{0}=0$
+\end_inset
+
+, we have 
+\begin_inset Formula 
+\[
+\lambda(t)=(\tfrac{1}{\sigma^{2}}\theta_{0}(x_{0}+\theta_{0}t))^{+}
+\]
+
+\end_inset
+
+until the first switch
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+.
+\end_layout
+
+\begin_layout Standard
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+All other details as before.
+ In particular, we set 
+\begin_inset Formula 
+\begin{align*}
+a & =\tfrac{1}{\sigma^{2}}\theta_{0}x_{0},\\
+b & =\tfrac{1}{\sigma^{2}},
+\end{align*}
+
+\end_inset
+
+and if 
+\begin_inset Formula $a<0$
+\end_inset
+
+, we move for 
+\begin_inset Formula $t=-\tfrac{a}{b}$
+\end_inset
+
+, and consider the problem at that point, where now 
+\begin_inset Formula $x_{0}=0$
+\end_inset
+
+ and 
+\begin_inset Formula $a=0$
+\end_inset
+
+.
+ Given a (possibly updated) 
+\begin_inset Formula $a$
+\end_inset
+
+ and 
+\begin_inset Formula $b$
+\end_inset
+
+, we need 
+\begin_inset Formula 
+\begin{align*}
+\mathbb{P}(\tau<t) & =1-\exp(-\int_{0}^{t}(a+bs)ds),\\
+\tau & =\tfrac{\sqrt{a^{2}-2b\log(1-u)}-a}{b},\,u\sim U[0,1].
+\end{align*}
+
+\end_inset
+
+Note that, as before, we initially at 
+\begin_inset Formula $x=0$
+\end_inset
+
+, so that 
+\begin_inset Formula $a=0$
+\end_inset
+
+, and we generate 
+\begin_inset Formula $\tau$
+\end_inset
+
+ according to the above formula with 
+\begin_inset Formula $a=0$
+\end_inset
+
+; then, we move to some positive 
+\begin_inset Formula $x$
+\end_inset
+
+ (in fact, 
+\begin_inset Formula $x=\tau$
+\end_inset
+
+), and change 
+\begin_inset Formula $\theta$
+\end_inset
+
+ to 
+\begin_inset Formula $-1$
+\end_inset
+
+; hence, 
+\begin_inset Formula $\theta x<0$
+\end_inset
+
+ at this point, so we move for 
+\begin_inset Formula $-\tfrac{a}{b}=-\theta x=x$
+\end_inset
+
+ back to 
+\begin_inset Formula $x=0$
+\end_inset
+
+, at which point 
+\begin_inset Formula $x=0$
+\end_inset
+
+, 
+\begin_inset Formula $a=0$
+\end_inset
+
+, and 
+\begin_inset Formula $b$
+\end_inset
+
+ as before, so we generate 
+\begin_inset Formula $\tau$
+\end_inset
+
+ according to the above formula with 
+\begin_inset Formula $a=0$
+\end_inset
+
+ again, and this time move to 
+\begin_inset Formula $x=-\tau$
+\end_inset
+
+ as 
+\begin_inset Formula $\theta=-1$
+\end_inset
+
+; then, we change 
+\begin_inset Formula $\theta$
+\end_inset
+
+ to 
+\begin_inset Formula $1$
+\end_inset
+
+, so that 
+\begin_inset Formula $\theta x<0$
+\end_inset
+
+, so we again move to 
+\begin_inset Formula $0$
+\end_inset
+
+; and so on.
+ So, as before, we just calculate a series of 
+\begin_inset Formula $\tau_{n}=\sqrt{-2\sigma^{2}\log(1-u)}$
+\end_inset
+
+, take 
+\begin_inset Formula $x_{n}=(-1)^{n+1}\tau_{n}$
+\end_inset
+
+, and calculate times accordingly.
 \end_layout
 
 \begin_layout Subsection
