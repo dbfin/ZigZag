@@ -88,7 +88,7 @@ The convergence of 1D normal distribution as a function of variance.
 
 \begin_layout Standard
 We use the Zig-Zag algorithm to simulate 1D normal distributions having
- zero means and different variances, and study how fact the process converges
+ zero means and different variances, and study how fast the process converges
  to the target distribution depending on the variance.
 \end_layout
 
@@ -265,12 +265,64 @@ We can then draw their distributions in the same graph, compare their means
 Particular details of the algorithm
 \end_layout
 
-\begin_layout Subsection
-Theoretical considerations and discussion of results
+\begin_layout Standard
+We consider the following 
+\begin_inset Formula $5$
+\end_inset
+
+ functions: 
+\begin_inset Formula $|x|$
+\end_inset
+
+, 
+\begin_inset Formula $x^{2}$
+\end_inset
+
+, 
+\begin_inset Formula $|x|^{3}$
+\end_inset
+
+, 
+\begin_inset Formula $x^{4}$
+\end_inset
+
+, and 
+\begin_inset Formula $\cos x$
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Standard
+For 
+\begin_inset Formula $N(0,\sigma^{2})$
+\end_inset
 
+, the integrals are 
+\begin_inset Formula $\sqrt{\tfrac{2}{\pi}}\sigma$
+\end_inset
+
+, 
+\begin_inset Formula $\sigma^{2}$
+\end_inset
+
+, 
+\begin_inset Formula $2\sqrt{\tfrac{2}{\pi}}\sigma^{3}$
+\end_inset
+
+, 
+\begin_inset Formula $3\sigma^{4}$
+\end_inset
+
+, and 
+\begin_inset Formula $e^{-\sigma^{2}/2}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Theoretical considerations and discussion of results
 \end_layout
 
 \end_body
