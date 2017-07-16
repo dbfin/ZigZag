@@ -279,11 +279,7 @@ We consider the following
 \end_inset
 
 , 
-\begin_inset Formula $\tfrac{1}{x^{2}}$
-\end_inset
-
-, 
-\begin_inset Formula $x^{4}$
+\begin_inset Formula $\tfrac{1}{\sqrt{|x|}}$
 \end_inset
 
 , and 
@@ -307,11 +303,7 @@ For
 \end_inset
 
 , 
-\begin_inset Formula $-\tfrac{1}{\sigma^{2}}$
-\end_inset
-
-, 
-\begin_inset Formula $3\sigma^{4}$
+\begin_inset Formula $\approx\tfrac{1.72}{\sqrt{\sigma}}$
 \end_inset
 
 , and 
@@ -319,7 +311,6 @@ For
 \end_inset
 
 .
- 
 \end_layout
 
 \begin_layout Standard
@@ -332,12 +323,10 @@ We first consider different variances for a fixed
 \end_inset
 
  and 
-\begin_inset Formula $\sigma^{2}=0.01,0.1,1,10,100$
+\begin_inset Formula $\sigma^{2}=0.125,\dotsc,2.5$
 \end_inset
 
-.
- (I chose these to see if there is a pattern of the change in convergence
- times as the variance increases in a power of 10.) 
+ (or something similar).
 \end_layout
 
 \begin_layout Standard
