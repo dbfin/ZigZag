@@ -1,7 +1,8 @@
-# In this experiment we consider simulating N(0,1)
+# In this experiment we consider simulating N(0,s^2)
 # until the measure of convergence becomes less than epsilon (E)
 # We do this for different values of E
 
+# The standard deviation of the target normal distribution
 s <- 1
 
 # Functions to use to evaluate convergence
@@ -139,7 +140,7 @@ while (i <= n) {
 # Checking that we indeed generate N(0, 1)
 plot(density(expXs, bw = "SJ"))
 normalxs <- seq(min(expXs) - 1, max(expXs) + 1, length = 100)
-normalys <- exp(-1 / 2 * normalxs^2) / sqrt(2 * pi)
+normalys <- exp(-1 / 2 / s^2 * normalxs^2) / sqrt(2 * pi) / s
 lines(normalxs, normalys, col = "red", lwd = 2)
 # Plotting average T against E
 plot(Es, sapply(expTs, mean), type = "l", col = "blue")
