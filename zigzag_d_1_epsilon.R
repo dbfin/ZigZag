@@ -2,6 +2,8 @@
 # until the measure of convergence becomes less than epsilon (E)
 # We do this for different values of E
 
+s <- 1
+
 # Functions to use to evaluate convergence
 Fs <- c(
   function (x) { abs(x); }
@@ -49,7 +51,7 @@ expSPNs <- list()
 # the target values of integrals
 pifs <- c(length(Fs))
 i <- 1
-while (i <= length(Fs)) { pifs[i] <- PIFs[[i]](1); i <- i + 1; }
+while (i <= length(Fs)) { pifs[i] <- PIFs[[i]](s); i <- i + 1; }
 
 # Initialize arrays to store experiment values
 # these will store one process to see that the algorithm works
@@ -82,7 +84,7 @@ E <- Es[iE]
 while (iE > 0 || (iN == 1 && length(Ts) < 1000)) {
 
   # calculate the new value of x
-  tau <- sqrt(-2 * log(runif(1)))
+  tau <- s * sqrt(-2 * log(runif(1)))
   xnew <- theta * tau
 
   # update the integrals
@@ -146,3 +148,4 @@ plot(Es, sapply(expTs, mean), type = "l", col = "blue")
 N
 rbind(Es, sapply(expSPNs, mean), sapply(expSPNs, sd))
 rbind(Es, sapply(expTs, mean), sapply(expTs, sd))
+Es * sapply(expTs, mean)
