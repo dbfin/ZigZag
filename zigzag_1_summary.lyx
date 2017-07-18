@@ -2249,7 +2249,7 @@ l cost and the mean times may vary quite significantly, we invariably get
 \end_layout
 
 \begin_layout Section*
-Theoretical Considerations and Future Discussions
+Theoretical Considerations and Future Discussions for 2-D
 \end_layout
 
 \begin_layout Standard
@@ -2440,6 +2440,111 @@ dimensional normal distributions, it is more interesting to look at how
 
  influences convergence.
  
+\end_layout
+
+\begin_layout Standard
+As representative values, we can take 
+\begin_inset Formula $\alpha=-1,-0.5,0,0.5,1$
+\end_inset
+
+.
+ Now that we have seen how the 
+\begin_inset Formula $1-$
+\end_inset
+
+d case varies as 
+\begin_inset Formula $\sigma^{2}<=>1$
+\end_inset
+
+, we will take 
+\begin_inset Formula $0.5,1,2$
+\end_inset
+
+ as representative values for the variance and consider the same functionals
+ as before.
+ So as before, we run 
+\begin_inset Formula $2$
+\end_inset
+
+ simulation results: first by fixing a predetermined 
+\begin_inset Formula $\epsilon$
+\end_inset
+
+ to see how the mean convergence times depend on different variances, for
+ each 
+\begin_inset Formula $\alpha$
+\end_inset
+
+, and second for a fixed variance, we see how the mean convergence times
+ depend on each 
+\begin_inset Formula $\alpha.$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+In the first experiment, we will collect tables of mean times till convergence
+ for different variances, and for each 
+\begin_inset Formula $\alpha,$
+\end_inset
+
+ we can first compare these results to the 
+\begin_inset Formula $1-$
+\end_inset
+
+dimensional results we have already obtained, and then compare it among
+ different 
+\begin_inset Formula $\alpha$
+\end_inset
+
+'s.
+ I am not sure at this point what results will turn out, but once we have
+ some results, we may gain new information and new inquiries to make about
+ the experiments.
+ 
+\end_layout
+
+\begin_layout Standard
+In the second experiment, we will most likely get the same trend in decreasing
+ mean times as 
+\begin_inset Formula $\epsilon$
+\end_inset
+
+increases.
+ So I am not sure at this point, if this will be of any interest anymore,
+ but we can compare how fast convergence happens for different 
+\begin_inset Formula $\alpha$
+\end_inset
+
+'s.
+ Moreover, this empirical case for 
+\begin_inset Formula $\alpha=0,$
+\end_inset
+
+ will again be linked to the case of time changed process.
+ (I don't think we can really consider the convergence formula for time
+ changed process problem when we have dependent processes) So using the
+ formula we obtain for the 
+\begin_inset Formula $1-$
+\end_inset
+
+dimensional case, we can investigate if the same holds for 
+\begin_inset Formula $2-d$
+\end_inset
+
+ case and what differences we get empirically by considering ergodic averages
+ from theoretical results we expect based on total variation norm.
+ In any case, studying 
+\begin_inset Formula $2-d$
+\end_inset
+
+ results and comparing them to the 
+\begin_inset Formula $1-d$
+\end_inset
+
+ results we obtained will give us an idea of how convergence works in Zig-Zag
+ as dimensionality increases, at least for the normal case.
 \end_layout
 
 \end_body
