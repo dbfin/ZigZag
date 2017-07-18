@@ -70,6 +70,68 @@
 
 \begin_body
 
+\begin_layout Title
+Empirical Findings on the Convergence Rates of 1-D Normal Zig-Zag as Variance
+ changes
+\end_layout
+
+\begin_layout Section*
+Motivation
+\end_layout
+
+\begin_layout Standard
+We wish to address the problem of how the rate of convergence varies as
+ a function of dimension 
+\begin_inset Formula $d$
+\end_inset
+
+.
+ To address this problem in the most simple setting, and hopefully gain
+ some insight on the more general case, we first consider a target distribution
+ 
+\begin_inset Formula $d-$
+\end_inset
+
+dimensional Normal density with zero mean and 
+\begin_inset Formula $d-$
+\end_inset
+
+independent coordinates.
+ Let us tackle this problem empirically by considering convergence in terms
+ of ergodic averages.
+ Now in the case of independent coordinates, we can consider the overall
+ process as 
+\begin_inset Formula $d$
+\end_inset
+
+ separate processes, with each converging on its own.
+ In this respect, it is natural to conjecture that the overall process will
+ converge at the rate of the coordinate process with the slowest rate.
+ Now in our simple 
+\begin_inset Formula $d-$
+\end_inset
+
+Normal example, each coordinate only differs in variance.
+ This leads us to consider then how do variances affect convergence rates
+ for 
+\begin_inset Formula $1$
+\end_inset
+
+ dimensional Normal distributions? Intuitively, densities with greater variance
+ are spread apart further and hence our zig-zag process will go further
+ away from the origin until it switches.
+ So it is reasonable to hypothesize that the time until convergence increases
+ as variance increases.
+ Thus, this is the first problem we wish to answer empirically.
+ For the criteria of convergence and details on the algorithm to compare
+ rates of convergence, refer to zigzag_d_plan.lyx file.
+ 
+\end_layout
+
+\begin_layout Section*
+Empirical Results
+\end_layout
+
 \begin_layout Standard
 We initially consider the case of the predetermined 
 \begin_inset Formula $\epsilon=0.05$
@@ -2186,13 +2248,140 @@ l cost and the mean times may vary quite significantly, we invariably get
  
 \end_layout
 
+\begin_layout Section*
+Theoretical Considerations and Future Discussions
+\end_layout
+
+\begin_layout Standard
+We have empirically shown that our hypothesis made in the 
+\series bold
+Motivation 
+\series default
+section is true.
+ However, this question also seems to be related to the following theoretical
+ problem.
+ Suppose 
+\begin_inset Formula $X_{t}$
+\end_inset
+
+ is a Zig-Zag process, then if we speed up the process by a factor of 
+\begin_inset Formula $a,$
+\end_inset
+
+ i.e.
+ 
+\begin_inset Formula $X_{at}=:Y_{t}$
+\end_inset
+
+ then how does this time change affect the time until convergence? While
+ we have considered convergence in terms of ergodic averages for the empirical
+ findings, now we may consider convergence in terms of total variation distance.
+ Namely, suppose that after time 
+\begin_inset Formula $T_{\epsilon}^{X}$
+\end_inset
+
+ , 
+\begin_inset Formula $\Vert P^{T_{\epsilon}^{X}}(X)-\pi(X)\Vert<\epsilon$
+\end_inset
+
+ for some predetermined 
+\begin_inset Formula $\epsilon>0.$
+\end_inset
+
+ Then what is the formula for 
+\begin_inset Formula $T_{\epsilon}^{Y}$
+\end_inset
+
+, i.e.
+ the time that after time 
+\begin_inset Formula $T_{\epsilon}^{Y}$
+\end_inset
+
+, we have 
+\begin_inset Formula $\Vert P^{T_{\epsilon}^{Y}}(Y)-\pi(Y)\Vert<\epsilon$
+\end_inset
+
+ .
+ We can relate this to the 
+\begin_inset Formula $2$
+\end_inset
+
+nd table we obtained before.
+ For instance, we can let 
+\begin_inset Formula $X_{t}\sim N(0,1)$
+\end_inset
+
+ and consider 
+\begin_inset Formula $a=\sqrt{1/2},\sqrt{2}$
+\end_inset
+
+.
+ Then for each fixed 
+\begin_inset Formula $\epsilon,$
+\end_inset
+
+ from the middle three rows of the table, we see that the mean times is
+ nearly doubled for variances from 
+\begin_inset Formula $0.5$
+\end_inset
+
+ to 
+\begin_inset Formula $1$
+\end_inset
+
+ and nearly 
+\begin_inset Formula $10\sim12$
+\end_inset
+
+ times for variances from 
+\begin_inset Formula $1$
+\end_inset
+
+ to 
+\begin_inset Formula $2$
+\end_inset
+
+.
+ Now, when we take out 
+\begin_inset Formula $f(x)=\cos x$
+\end_inset
+
+ and compare the same results, we still get nearly twice the values from
+ 
+\begin_inset Formula $0.5$
+\end_inset
+
+ to 
+\begin_inset Formula $1$
+\end_inset
+
+ and nearly twice the values from 
+\begin_inset Formula $1$
+\end_inset
+
+ to 
+\begin_inset Formula $2$
+\end_inset
+
+.
+ Important thing to notice here is that the ratio remains about the same
+ for each 
+\begin_inset Formula $\epsilon$
+\end_inset
+
+, hence I presume that though we consider convergence in different terms,
+ the two results are related somehow.
+ Thus, this is something we should continue to investigate in multi-dimensional
+ setting.
+\end_layout
+
 \begin_layout Standard
 We are now ready to move on to a multi 
 \begin_inset Formula $d$
 \end_inset
 
 -dimensional setting.
- Let us first consider the case of a 
+ Let us return to the case of a 
 \begin_inset Formula $d-$
 \end_inset
 
@@ -2218,8 +2407,8 @@ independent components.
 \begin_inset Formula $(d)$
 \end_inset
 
- due to the properties of the Poisson Process (can you explain this part
- further?) Hence, we are able to consider 
+ due to the properties of the Poisson Process (can you write about this
+ theoretical reason in more detail?) Hence, we are able to consider 
 \begin_inset Formula $2(d)$
 \end_inset
 
