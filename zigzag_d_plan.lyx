@@ -83,7 +83,7 @@ Zig-Zag and Dimensionality
 \end_layout
 
 \begin_layout Section
-The convergence of 1D normal distribution as a function of variance.
+The convergence of 1D normal distribution as a function of variance
 \end_layout
 
 \begin_layout Standard
@@ -619,8 +619,460 @@ Note that, as before, we initially at
 Theoretical considerations and discussion of results
 \end_layout
 
-\begin_layout Standard
+\begin_layout Subsubsection
+The effect of the variance on convergence
+\end_layout
 
+\begin_layout Standard
+The empirical results show that when the variance of a 1D normal distribution
+ increases, the convergence of the Zig-Zag process slows down.
+ We discuss this from the theoretical point of view.
+ We start with the Zig-Zag process 
+\begin_inset Formula $X(t)$
+\end_inset
+
+ for 
+\begin_inset Formula $N(0,1)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+First, we consider what happens when instead of moving with the speed 
+\begin_inset Formula $1$
+\end_inset
+
+, we move in both directions with the speed 
+\begin_inset Formula $v$
+\end_inset
+
+.
+ For each realization of the time till the next switching point, we now
+ move the distance 
+\begin_inset Formula $v$
+\end_inset
+
+ times longer, than before.
+ Since we start at 
+\begin_inset Formula $0$
+\end_inset
+
+, this is the same as multiplying the whole process by 
+\begin_inset Formula $v$
+\end_inset
+
+.
+ Now, the slope of each linear segment is 
+\begin_inset Formula $v$
+\end_inset
+
+ or 
+\begin_inset Formula $-v$
+\end_inset
+
+, as expected.
+\end_layout
+
+\begin_layout Standard
+Second, we take the resulting process and scale the time.
+ So, we get 
+\begin_inset Formula 
+\[
+Y(t)=vX(t/v).
+\]
+
+\end_inset
+
+The slope of each linear segment is back to 
+\begin_inset Formula $1$
+\end_inset
+
+.
+ So, the resulting process can be a Zig-Zag process for some distribution.
+\end_layout
+
+\begin_layout Standard
+Now, we consider a Zig-Zag process 
+\begin_inset Formula $Z(t)$
+\end_inset
+
+ with rates 
+\begin_inset Formula 
+\[
+\lambda(s)=(\theta/v(z_{0}/v+(\theta/v)s))^{+},
+\]
+
+\end_inset
+
+and call the resulting time 
+\begin_inset Formula $\tau^{z}$
+\end_inset
+
+, then, 
+\begin_inset Formula 
+\begin{align*}
+\mathbb{P}(\tau^{z}<vt) & =1-\exp(-\int_{0}^{vt}(\theta/v(z_{0}/v+(\theta/v)s))^{+}ds)\\
+ & =1-\exp(-\int_{0}^{t}(\theta(z_{0}/v+\theta u))^{+}du)\\
+ & =\mathbb{P}(\tau<t),
+\end{align*}
+
+\end_inset
+
+where 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\tau$
+\end_inset
+
+ has rates 
+\begin_inset Formula 
+\[
+\lambda(u)=(\theta(z_{0}/v+\theta u))^{+}.
+\]
+
+\end_inset
+
+If we now define 
+\begin_inset Formula $X(t)=Z(vt)/v$
+\end_inset
+
+, and define 
+\begin_inset Formula $\tau^{x}$
+\end_inset
+
+ as the time between switching points of 
+\begin_inset Formula $X$
+\end_inset
+
+, then 
+\begin_inset Formula 
+\begin{align*}
+\mathbb{P}(\tau^{x}<t) & =\mathbb{P}(\tau^{z}<vt)\\
+ & =\mathbb{P}(\tau<t),
+\end{align*}
+
+\end_inset
+
+with the rates 
+\begin_inset Formula 
+\[
+\lambda(u)=(\theta(x_{0}+\theta u))^{+},
+\]
+
+\end_inset
+
+implying that 
+\begin_inset Formula $X(t)$
+\end_inset
+
+ is the Zig-Zag process corresponding to the standard normal distribution.
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+This means that the Zig-Zag process 
+\begin_inset Formula $Z(t)$
+\end_inset
+
+ with the rates as above is the same as the process 
+\begin_inset Formula $Y(t)$
+\end_inset
+
+ we described first.
+ But for 
+\begin_inset Formula $Z(t)$
+\end_inset
+
+ we have 
+\begin_inset Formula 
+\begin{align*}
+\lambda(s) & =(\theta/v(z_{0}/v+(\theta/v)s))^{+}\\
+ & =(\theta/v^{2}(z_{0}+\theta s))^{+},
+\end{align*}
+
+\end_inset
+
+which are the rates for the normal distribution 
+\begin_inset Formula $N(0,v^{2})$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+In conclusion, if 
+\begin_inset Formula $X(t)$
+\end_inset
+
+ is the Zig-Zag process for the standard normal distribution 
+\begin_inset Formula $N(0,1)$
+\end_inset
+
+, then after scaling it by a factor 
+\begin_inset Formula $v$
+\end_inset
+
+ so that the slopes of its line segments remain 
+\begin_inset Formula $1$
+\end_inset
+
+ (we scale both vertically and horizontally), it becomes the Zig-Zag process
+ for the normal distribution 
+\begin_inset Formula $N(0,v^{2})$
+\end_inset
+
+.
+ This shows that the latter converges 
+\begin_inset Formula $v$
+\end_inset
+
+ times slower than the former.
+\end_layout
+
+\begin_layout Standard
+The scaling result is, in fact, clear from the following simple observation.
+ If we generate the Zig-Zag process 
+\begin_inset Formula $X(t)$
+\end_inset
+
+ for the standard normal distribution 
+\begin_inset Formula $N(0,1)$
+\end_inset
+
+ up to time 
+\begin_inset Formula $T$
+\end_inset
+
+, and then scale it, so we take 
+\begin_inset Formula 
+\[
+Y(t)=vX(t/v),\,t\in[0,vT],
+\]
+
+\end_inset
+
+as before, then when we generate a sample from it, we have 
+\begin_inset Formula 
+\begin{align*}
+Y_{k,n} & =Y(\tfrac{k}{n+1}vT)\\
+ & =vX(\tfrac{k}{n+1}vT/v)\\
+ & =vX(\tfrac{k}{n+1}T),
+\end{align*}
+
+\end_inset
+
+i.e.
+ we take the corresponding sample from the initial process 
+\begin_inset Formula $X(t)$
+\end_inset
+
+ for 
+\begin_inset Formula $N(0,1)$
+\end_inset
+
+, and simply multiply all observations by 
+\begin_inset Formula $v$
+\end_inset
+
+.
+ The resulting sample is then from the normal distribution 
+\begin_inset Formula $N(0,v^{2})$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Now, we check the convergence by integrating a set of functions along the
+ path and comparing the results with the corresponding expectations.
+ So, given 
+\begin_inset Formula $f$
+\end_inset
+
+, we have 
+\begin_inset Formula 
+\[
+\left|\tfrac{1}{vt}\int_{0}^{vt}f(vX(s/v))ds/\int_{\mathbb{R}}f(s)\tfrac{1}{v}\phi(\tfrac{s}{v})ds-1\right|=\left|\tfrac{1}{t}\int_{0}^{t}f(vX(u))du/\int_{\mathbb{R}}f(vu)\phi(u)du-1\right|,
+\]
+
+\end_inset
+
+so that 
+\begin_inset Formula $vt$
+\end_inset
+
+ satisfies the convergence criterion for 
+\begin_inset Formula $f(x)$
+\end_inset
+
+ and the process 
+\begin_inset Formula $vX(t/v)$
+\end_inset
+
+ (the LHS is less than a fixed 
+\begin_inset Formula $\epsilon>0$
+\end_inset
+
+) when 
+\begin_inset Formula $t$
+\end_inset
+
+ satisfies the convergence criterion for 
+\begin_inset Formula $g(x)=f(vx)$
+\end_inset
+
+ and the process 
+\begin_inset Formula $X(t)$
+\end_inset
+
+ (the RHS is less than 
+\begin_inset Formula $\epsilon$
+\end_inset
+
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+)
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+.
+ However, in our code we use the same function 
+\begin_inset Formula $f$
+\end_inset
+
+ to check the convergence for every 
+\begin_inset Formula $\sigma$
+\end_inset
+
+.
+ This is not a problem when 
+\begin_inset Formula 
+\[
+f(x)=|x|^{\alpha},
+\]
+
+\end_inset
+
+because 
+\begin_inset Formula 
+\[
+g(x)=v^{\alpha}|x|^{\alpha},
+\]
+
+\end_inset
+
+the same function up to a constant (and constants do not matter as we consider
+ relative errors).
+ However, when we add a function such as 
+\begin_inset Formula $\cos x$
+\end_inset
+
+, 
+\begin_inset Formula $g(x)$
+\end_inset
+
+ becomes a scaled version of 
+\begin_inset Formula $\cos x$
+\end_inset
+
+, which weighs different points.
+ This shows why the resulting convergence does not depend on 
+\begin_inset Formula $\sigma$
+\end_inset
+
+ linearly.
+\end_layout
+
+\begin_layout Standard
+To complete this theoretical part we provide an additional code to verify
+ this last fact.
+ We consider the functions 
+\begin_inset Formula $\cos x$
+\end_inset
+
+, 
+\begin_inset Formula $\cos(\sigma x)$
+\end_inset
+
+, 
+\begin_inset Formula $\cos(x/\sigma)$
+\end_inset
+
+, 
+\begin_inset Formula $\cos(\sigma^{2}x)$
+\end_inset
+
+, 
+\begin_inset Formula $\cos(x/\sigma^{2})$
+\end_inset
+
+ etc.
+ to verify that when we have a series of such functions the convergence
+ becomes more linear in 
+\begin_inset Formula $\sigma$
+\end_inset
+
+.
+ The code is in the file zigzag_d_1_variance_cos.R.
+\end_layout
+
+\begin_layout Section
+The convergence of 2D normal distribution as a function of covariance
+\end_layout
+
+\begin_layout Standard
+We use the Zig-Zag algorithm to simulate 2D normal distributions having
+ zero means, variances of coordinates 
+\begin_inset Formula $1$
+\end_inset
+
+ and 
+\begin_inset Formula $\sigma^{2}\in\{1,2\}$
+\end_inset
+
+, and covariance 
+\begin_inset Formula $\alpha=0,0.5,1$
+\end_inset
+
+, and study how fast the process converges to the target distribution depending
+ on the variance.
 \end_layout
 
 \end_body
