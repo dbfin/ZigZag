@@ -1067,12 +1067,231 @@ We use the Zig-Zag algorithm to simulate 2D normal distributions having
 \begin_inset Formula $\sigma^{2}\in\{1,2\}$
 \end_inset
 
-, and covariance 
+, and correlation 
 \begin_inset Formula $\alpha=0,0.5,1$
 \end_inset
 
 , and study how fast the process converges to the target distribution depending
- on the variance.
+ on the correlation.
+\end_layout
+
+\begin_layout Subsection
+Criteria of convergence
+\end_layout
+
+\begin_layout Subsection
+The Zig-Zag process
+\end_layout
+
+\begin_layout Standard
+We simulate 
+\begin_inset Formula 
+\[
+N\left(\boldsymbol{0},\begin{pmatrix}1 & \alpha\sigma\\
+\alpha\sigma & \sigma^{2}
+\end{pmatrix}\right)
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $\alpha\in[0,1]$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+First, we calculate 
+\begin_inset Formula $\Psi(\xi)$
+\end_inset
+
+.
+ We have 
+\begin_inset Formula 
+\begin{align*}
+\exp(-\Psi(\xi)) & \sim\exp(-\tfrac{1}{2(1-\alpha^{2})}(\xi_{1}^{2}+\xi_{2}^{2}/\sigma^{2}-2\alpha\xi_{1}\xi_{2}/\sigma)),\\
+\Psi(\xi) & =\tfrac{1}{2(1-\alpha^{2})}(\xi_{1}^{2}+\xi_{2}^{2}/\sigma^{2}-2\alpha\xi_{1}\xi_{2}/\sigma).
+\end{align*}
+
+\end_inset
+
+Then, 
+\begin_inset Formula 
+\begin{align*}
+\theta_{1}\partial_{1}\Psi(\xi) & =\tfrac{\theta_{1}}{1-\alpha^{2}}(\xi_{1}-\alpha\xi_{2}/\sigma),\\
+\theta_{2}\partial_{2}\Psi(\xi) & =\tfrac{\theta_{2}}{(1-\alpha^{2})\sigma}(\xi_{2}/\sigma-\alpha\xi_{1}).
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The expression above implies that if we start at 
+\begin_inset Formula $(\xi^{(0)},\theta^{(0)})$
+\end_inset
+
+, so that 
+\begin_inset Formula 
+\[
+\xi(t)=\xi^{(0)}+\theta^{(0)}t,
+\]
+
+\end_inset
+
+then 
+\begin_inset Formula 
+\begin{align*}
+\lambda_{1}(\xi(t),\theta^{(0)}) & =(\tfrac{\theta_{1}^{(0)}}{1-\alpha^{2}}(\xi_{1}^{(0)}-\alpha\xi_{2}^{(0)}/\sigma+(\theta_{1}^{(0)}-\alpha\theta_{2}^{(0)}/\sigma)t))^{+}\\
+ & =\begin{cases}
+\tfrac{1}{1-\alpha^{2}}(\theta_{1}^{(0)}(\xi_{1}^{(0)}-\tfrac{\alpha}{\sigma}\xi_{2}^{(0)})+(1-\tfrac{\alpha}{\sigma})t)^{+} & \text{ if }\theta_{1}^{(0)}=\theta_{2}^{(0)}\\
+\tfrac{1}{1-\alpha^{2}}(\theta_{1}^{(0)}(\xi_{1}^{(0)}-\tfrac{\alpha}{\sigma}\xi_{2}^{(0)})+(1+\tfrac{\alpha}{\sigma})t)^{+} & \text{ if }\theta_{1}^{(0)}=-\theta_{2}^{(0)}
+\end{cases},\\
+\lambda_{2}(\xi(t),\theta^{(0)}) & =(\tfrac{\theta_{2}^{(0)}}{(1-\alpha^{2})\sigma}(\tfrac{1}{\sigma}\xi_{2}^{(0)}-\alpha\xi_{1}^{(0)}+(\tfrac{1}{\sigma}\theta_{2}^{(0)}-\alpha\theta_{1}^{(0)})t))^{+}\\
+ & =\begin{cases}
+\tfrac{1}{1-\alpha^{2}}(\theta_{2}^{(0)}(\tfrac{1}{\sigma^{2}}\xi_{2}^{(0)}-\tfrac{\alpha}{\sigma}\xi_{1}^{(0)})+(\tfrac{1}{\sigma^{2}}-\tfrac{\alpha}{\sigma})t)^{+} & \text{ if }\theta_{1}^{(0)}=\theta_{2}^{(0)}\\
+\tfrac{1}{1-\alpha^{2}}(\theta_{2}^{(0)}(\tfrac{1}{\sigma^{2}}\xi_{2}^{(0)}-\tfrac{\alpha}{\sigma}\xi_{1}^{(0)})+(\tfrac{1}{\sigma^{2}}+\tfrac{\alpha}{\sigma})t)^{+} & \text{ if }\theta_{1}^{(0)}=-\theta_{2}^{(0)}
+\end{cases}.
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+So, the algorithm is as follows.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Let 
+\begin_inset Formula $a=\tfrac{\alpha}{\sigma}$
+\end_inset
+
+, 
+\begin_inset Formula $b=\tfrac{1}{\sigma^{2}}$
+\end_inset
+
+, 
+\begin_inset Formula $c=\tfrac{1}{1-\alpha^{2}}$
+\end_inset
+
+.
+ These are constants.
+\end_layout
+
+\begin_layout Enumerate
+Initialize 
+\begin_inset Formula $k=0$
+\end_inset
+
+, 
+\begin_inset Formula $(t_{0},x_{0},y_{0})=(0,0,0)$
+\end_inset
+
+, 
+\begin_inset Formula $\theta^{(0)}=\theta=(1,1)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+Calculate 
+\begin_inset Formula 
+\begin{align*}
+p_{x} & =c\theta_{1}(x_{k}-ay_{k}),\\
+p_{y} & =c\theta_{2}(by_{k}-ax_{k}).
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Let 
+\begin_inset Formula 
+\begin{align*}
+q_{x} & =\begin{cases}
+c(1-a) & \text{ if }\theta_{1}^{(0)}=\theta_{2}^{(0)}\\
+c(1+a) & \text{ if }\theta_{1}^{(0)}=-\theta_{2}^{(0)}
+\end{cases},\\
+q_{y} & =\begin{cases}
+c(b-a) & \text{ if }\theta_{1}^{(0)}=\theta_{2}^{(0)}\\
+c(b+a) & \text{ if }\theta_{1}^{(0)}=-\theta_{2}^{(0)}
+\end{cases}.
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+For 
+\begin_inset Formula $z\in\{x,y\}$
+\end_inset
+
+, let 
+\begin_inset Formula 
+\begin{align*}
+p & =\max\{0,p_{z}\},\\
+\tau_{z} & =G(u)+\underbrace{\max\{0,-\tfrac{p_{z}}{q_{z}}\}}_{\text{this is how long it takes until }p_{z}+q_{z}t\ge0},
+\end{align*}
+
+\end_inset
+
+where 
+\begin_inset Formula 
+\begin{align*}
+G(u) & =\tfrac{\sqrt{p^{2}-2q_{z}\log(1-u)}-p}{q_{z}},\\
+u & \sim U(0,1).
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Let 
+\begin_inset Formula 
+\[
+\tau=\min\{\tau_{x},\tau_{y}\}.
+\]
+
+\end_inset
+
+Depending on which one gives the minimum, we set 
+\begin_inset Formula $j=1$
+\end_inset
+
+ or 
+\begin_inset Formula $2$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Enumerate
+Let 
+\begin_inset Formula 
+\begin{align*}
+k & \leftarrow k+1,\\
+t_{k} & =t_{k-1}+\tau,\\
+x_{k} & =x_{k-1}+\theta_{1}\tau,\\
+y_{k} & =y_{k-1}+\theta_{2}\tau,\\
+\theta_{j} & =-\theta_{j},\\
+\theta_{k} & =\theta.
+\end{align*}
+
+\end_inset
+
+
 \end_layout
 
 \end_body
