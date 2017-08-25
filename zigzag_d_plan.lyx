@@ -1076,10 +1076,6 @@ We use the Zig-Zag algorithm to simulate 2D normal distributions having
 \end_layout
 
 \begin_layout Subsection
-Criteria of convergence
-\end_layout
-
-\begin_layout Subsection
 The Zig-Zag process
 \end_layout
 
@@ -1236,7 +1232,24 @@ For
 \begin_inset Formula $z\in\{x,y\}$
 \end_inset
 
-, let 
+, the rate is 
+\begin_inset Formula 
+\[
+(p_{z}+q_{z}t)^{+},
+\]
+
+\end_inset
+
+so we have three cases:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+if 
+\begin_inset Formula $q_{z}>0$
+\end_inset
+
+, the rate is positive eventually, and as in the 1D case, let 
 \begin_inset Formula 
 \begin{align*}
 p & =\max\{0,p_{z}\},\\
@@ -1249,7 +1262,7 @@ where
 \begin_inset Formula 
 \begin{align*}
 G(u) & =\tfrac{\sqrt{p^{2}-2q_{z}\log(1-u)}-p}{q_{z}},\\
-u & \sim U(0,1).
+u & \sim U(0,1);
 \end{align*}
 
 \end_inset
@@ -1257,6 +1270,108 @@ u & \sim U(0,1).
 
 \end_layout
 
+\begin_layout Enumerate
+if 
+\begin_inset Formula $q_{z}<0$
+\end_inset
+
+, the rate 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+is either always 
+\begin_inset Formula $0$
+\end_inset
+
+ if 
+\begin_inset Formula $p_{z}\le0$
+\end_inset
+
+, or is positive from time 
+\begin_inset Formula $0$
+\end_inset
+
+ to 
+\begin_inset Formula $-p_{z}/q_{z}$
+\end_inset
+
+ if 
+\begin_inset Formula $p_{z}>0$
+\end_inset
+
+, in which case 
+\begin_inset Formula 
+\[
+\tau_{z}=G(u)\text{ where }p=p_{z},
+\]
+
+\end_inset
+
+if the generated 
+\begin_inset Formula $u\sim U(0,1)$
+\end_inset
+
+ is such that 
+\begin_inset Formula 
+\begin{align*}
+p^{2}-2q_{z}\log(1-u) & \ge0,\text{ i.e.}\\
+u & \le1-\exp(p^{2}/(2q_{z}));
+\end{align*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+if 
+\begin_inset Formula $q_{z}=0$
+\end_inset
+
+, the rate is constant and is equal to 
+\begin_inset Formula $(p_{z})^{+}$
+\end_inset
+
+, so that it is 
+\begin_inset Formula $0$
+\end_inset
+
+ if 
+\begin_inset Formula $p_{z}\le0$
+\end_inset
+
+, or 
+\begin_inset Formula 
+\[
+\tau_{z}\sim-\log(1-u)/p_{z}\text{ if }p_{z}>0.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
 \begin_layout Enumerate
 Let 
 \begin_inset Formula 
@@ -1292,6 +1407,84 @@ y_{k} & =y_{k-1}+\theta_{2}\tau,\\
 \end_inset
 
 
+\end_layout
+
+\begin_layout Subsection
+Criteria of convergence
+\end_layout
+
+\begin_layout Standard
+In the two-dimensional case we need to consider functions of two arguments.
+\end_layout
+
+\begin_layout Standard
+We take first functions that depend on one argument only to ensure the convergen
+ce of each component distribution: 
+\begin_inset Formula 
+\begin{align*}
+f(x,y) & =|x|,\\
+f(x,y) & =x^{2},\\
+f(x,y) & =\tfrac{1}{\sqrt{|x|}},\\
+f(x,y) & =|y|,\\
+f(x,y) & =y^{2},\\
+f(x,y) & =\tfrac{1}{\sqrt{|y|}}.
+\end{align*}
+
+\end_inset
+
+The expectations of these functions are as in the one-dimensional case.
+\end_layout
+
+\begin_layout Standard
+We then add a function that ensures the mutual convergences of the two component
+s: 
+\begin_inset Formula 
+\[
+f(x,y)=|xy|.
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+There are other functions that can be added, but let us start with these.
+\end_layout
+
+\begin_layout Subsection
+Some questions to investigate
+\end_layout
+
+\begin_layout Enumerate
+First, we should consider the case 
+\begin_inset Formula $\alpha=0$
+\end_inset
+
+.
+ We need to compare the case when we use the first six functions only with
+ the case when we use all seven functions.
+ This exercise will show how controlling the mutual convergence of the component
+s influences the convergence time.
+ Indeed, in the first case we have two independent Zig-Zag processes and
+ we only check that each of them converges.
+ So, the time of convergence should be close to the one-dimensional case.
+ In the second case, we still have independent components, but we also check
+ that the resulting two-dimensional Zig-Zag process converges to a point
+ where the components are indeed uncorrelated (in the sense of the 7th function).
+ This may or may not significantly increase the convergence time.
+\end_layout
+
+\begin_layout Enumerate
+Second, we consider all seven functions, and vary 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ to see how the time of convergence depends on 
+\begin_inset Formula $\alpha$
+\end_inset
+
+.
 \end_layout
 
 \end_body
