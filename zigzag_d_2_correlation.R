@@ -1,13 +1,13 @@
 # Here we study the convergence of the Zig-Zag algorithm for N((0,0), (1, a, a, s^2))
 
 # The values of s to consider
-Ss <- c(1, 2)
+Ss <- c(1, 1.5)
 
 # The values of a to consider
 As <- c(0, 0.25, 0.5)
 
 # The number of experiments for each s and a
-N <- 500
+N <- 100
 
 # Finctions f to use to evaluate convergence
 Fs <- c(
@@ -16,8 +16,8 @@ Fs <- c(
   function (x, y) { 1 / sqrt(abs(x)); },
   function (x, y) { abs(y); },
   function (x, y) { y^2; },
-  function (x, y) { 1 / sqrt(abs(y)); }#,
-#  function (x, y) { abs(x * y); }
+  function (x, y) { 1 / sqrt(abs(y)); },
+  function (x, y) { abs(x * y); }
 )
 
 # Explicit integrals of these functions
@@ -33,7 +33,29 @@ IFs <- c(
   function (x0, y0, x1, y1, theta_x, theta_y, tau) { theta_x * (sign(x1) * sqrt(abs(x1)) - sign(x0) * sqrt(abs(x0))) * 2; },
   function (x0, y0, x1, y1, theta_x, theta_y, tau) { theta_y * (y1 * abs(y1) - y0 * abs(y0)) / 2; },
   function (x0, y0, x1, y1, theta_x, theta_y, tau) { theta_y * (y1^3 - y0^3) / 3; },
-  function (x0, y0, x1, y1, theta_x, theta_y, tau) { theta_y * (sign(y1) * sqrt(abs(y1)) - sign(y0) * sqrt(abs(y0))) * 2; }
+  function (x0, y0, x1, y1, theta_x, theta_y, tau) { theta_y * (sign(y1) * sqrt(abs(y1)) - sign(y0) * sqrt(abs(y0))) * 2; },
+  function (x0, y0, x1, y1, theta_x, theta_y, tau) {
+    boundaries <- sort(c(-x0 / theta_x, -y0 / theta_y))
+    boundaries <- boundaries[which(boundaries > 0 & boundaries < tau)]
+    boundaries <- c(0, boundaries, tau)
+    i <- 1
+    t0 <- 0
+    if (x0 == 0 || y0 == 0) {
+      s <- sign((x0 + theta_x * boundaries[2]) * (y0 + theta_y * boundaries[2]))
+    }
+    else {
+      s <- sign(x0 * y0)
+    }
+    integral <- 0
+    while (i < length(boundaries)) {
+      t1 <- boundaries[i + 1]
+      integral <- integral + s * (x0 * y0 * (t1 - t0) + (theta_x * y0 + theta_y * x0) * (t1^2 - t0^2) / 2 + theta_x * theta_y * (t1^3 - t0^3) / 3)
+      s <- -s
+      t0 <- t1
+      i <- i + 1
+    }
+    integral
+  }
 )
 
 # pi(f)
@@ -43,7 +65,8 @@ PIFs <- c(
   function (s, a) { 1.720079974649039070752407248933115962110249350333550144551; },
   function (s, a) { sqrt(2 / pi) * s; },
   function (s, a) { s^2; },
-  function (s, a) { 1.720079974649039070752407248933115962110249350333550144551 / sqrt(s); }
+  function (s, a) { 1.720079974649039070752407248933115962110249350333550144551 / sqrt(s); },
+  function (s, a) { 2 * s / pi * (a * asin(a) + sqrt(1 - a^2)); }
 )
 
 # Epsilon
