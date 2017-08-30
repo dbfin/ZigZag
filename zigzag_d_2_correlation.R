@@ -149,6 +149,7 @@ while (iA <= length(As)) {
     cc <- 1 / (1 - a^2)
     
     # Loop Zig-Zag
+    proc_time_ZZ <- proc.time()[3]
     runZZ <- TRUE
     while (runZZ || (iN == 1 && iSP <= 4 * N)) {
 
@@ -227,10 +228,23 @@ while (iA <= length(As)) {
       }
       
       # if the maximum measure is small enough we stop
-      if (runZZ && max(abs(is / t / pifs - 1)) < E) {
-        expTs[iS, iA, iN] <- t
-        expSPNs[iS, iA, iN] <- iSP
-        runZZ <- FALSE
+      if (runZZ) {
+
+        maxE <- max(abs(is / t / pifs - 1))
+        
+        # Report progress if got stuck
+        proc_time <- proc.time()[3]
+        if (proc_time - proc_time_ZZ >= 1) {
+          print(paste0("Got stuck at s=", s, " a=", a, " n=", iN, "/", N, " E=", round(maxE, 3), " -> ", E,
+                       round(proc_time - proc_time_initial, 1), " seconds"))
+          proc_time_last <- proc_time_ZZ <- proc_time
+        }
+
+        if (maxE < E) {
+          expTs[iS, iA, iN] <- t
+          expSPNs[iS, iA, iN] <- iSP
+          runZZ <- FALSE
+        }
       }
       
       # The end of loop Zig-Zag
