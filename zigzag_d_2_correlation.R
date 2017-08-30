@@ -235,7 +235,7 @@ while (iA <= length(As)) {
         # Report progress if got stuck
         proc_time <- proc.time()[3]
         if (proc_time - proc_time_ZZ >= 1) {
-          print(paste0("Got stuck at s=", s, " a=", a, " n=", iN, "/", N, " E=", round(maxE, 3), " -> ", E,
+          print(paste0("Got stuck at s=", s, " a=", a, " n=", iN, "/", N, " E=", round(maxE, 3), " ",
                        round(proc_time - proc_time_initial, 1), " seconds"))
           proc_time_last <- proc_time_ZZ <- proc_time
         }
