@@ -1,13 +1,13 @@
 # Here we study the convergence of the Zig-Zag algorithm for N((0,0), (1, a, a, s^2))
 
 # The values of s to consider
-Ss <- c(1, 1.5)
+Ss <- c(1, 2)
 
 # The values of a to consider
 As <- c(0, 0.25, 0.5)
 
 # The number of experiments for each s and a
-N <- 100
+N <- 1000
 
 # Finctions f to use to evaluate convergence
 Fs <- c(
@@ -35,25 +35,40 @@ IFs <- c(
   function (x0, y0, x1, y1, theta_x, theta_y, tau) { theta_y * (y1^3 - y0^3) / 3; },
   function (x0, y0, x1, y1, theta_x, theta_y, tau) { theta_y * (sign(y1) * sqrt(abs(y1)) - sign(y0) * sqrt(abs(y0))) * 2; },
   function (x0, y0, x1, y1, theta_x, theta_y, tau) {
-    boundaries <- sort(c(-x0 / theta_x, -y0 / theta_y))
-    boundaries <- boundaries[which(boundaries > 0 & boundaries < tau)]
-    boundaries <- c(0, boundaries, tau)
-    i <- 1
-    t0 <- 0
-    if (x0 == 0 || y0 == 0) {
-      s <- sign((x0 + theta_x * boundaries[2]) * (y0 + theta_y * boundaries[2]))
+    xr <- -x0 / theta_x
+    yr <- -y0 / theta_y
+    if (xr > 0 & xr < tau) {
+      if (yr > 0 && yr < tau) {
+        if (yr <= xr) {
+          boundaries <- c(0, yr, xr, tau)
+        }
+        else {
+          boundaries <- c(0, xr, yr, tau)
+        }
+      }
+      else {
+        boundaries <- c(0, xr, tau)
+      }
     }
     else {
-      s <- sign(x0 * y0)
+      if (yr > 0 && yr < tau) {
+        boundaries <- c(0, yr, tau)
+      }
+      else {
+        boundaries <- c(0, tau)
+      }
     }
+    i <- 2
+    s <- sign((x0 + theta_x * boundaries[2] / 2) * (y0 + theta_y * boundaries[2] / 2))
     integral <- 0
     while (i < length(boundaries)) {
-      t1 <- boundaries[i + 1]
-      integral <- integral + s * (x0 * y0 * (t1 - t0) + (theta_x * y0 + theta_y * x0) * (t1^2 - t0^2) / 2 + theta_x * theta_y * (t1^3 - t0^3) / 3)
+      tcur <- boundaries[i]
+      integral <- integral + 2 * s * (x0 * y0 * tcur + (theta_x * y0 + theta_y * x0) * tcur^2 / 2 + theta_x * theta_y * tcur^3 / 3)
       s <- -s
-      t0 <- t1
       i <- i + 1
     }
+    tcur <- boundaries[i]
+    integral <- integral + s * (x0 * y0 * tcur + (theta_x * y0 + theta_y * x0) * tcur^2 / 2 + theta_x * theta_y * tcur^3 / 3)
     integral
   }
 )
@@ -81,7 +96,10 @@ expTs <- array(dim = c(length(Ss), length(As), N))
 # - the resulting numbers of switching points
 expSPNs <- array(dim = c(length(Ss), length(As), N))
 
-proc_time <- proc.time()
+proc_time_initial <- proc.time()[3]
+proc_time_last <- proc_time_initial
+steps_total <- length(Ss) * length(As) * N
+steps_count <- 0
 
 # Loop S
 iS <- 1
@@ -106,6 +124,15 @@ while (iA <= length(As)) {
   # Loop N
   iN <- 1
   while (iN <= N) {
+
+    # Report progress
+    proc_time <- proc.time()[3]
+    if (proc_time - proc_time_last >= 1) {
+      print(paste0("s:", iS, "/", length(Ss), " a:", iA, "/", length(As), " n:", iN, "/", N, " ",
+                  round(steps_count / steps_total * 100, 1), "% ",
+                  round(proc_time - proc_time_initial, 1), " seconds"))
+      proc_time_last <- proc_time
+    }
     
     # Variables
     iSP <- 1 # the index of the next switching point
@@ -211,8 +238,9 @@ while (iA <= length(As)) {
       if (tau == tau_x) { theta_x <- -theta_x; }
       else { theta_y <- -theta_y; }
     }
-    
+
     # The end of loop N
+    steps_count <- steps_count + 1
     iN <- iN + 1
   }
   
@@ -261,7 +289,7 @@ while (iA <= length(As)) {
 iS <- iS + 1
 }
 
-proc_time <- proc.time() - proc_time
+proc_time <- proc.time()[3] - proc_time_initial
 
 # Means and standard deviations of the numbers of SPs and times
 expESPNs <- matrix(nrow = length(Ss), ncol = length(As), dimnames = list(rep(0, length(Ss)), rep(0, length(As))))
@@ -290,7 +318,7 @@ while (iS <= length(Ss)) {
   iS <- iS + 1
 }
 
-paste("Time :", proc_time[3], "seconds")
+paste("Time :", round(proc_time, 2), "seconds")
 expXYs
 expESPNs
 expETs
