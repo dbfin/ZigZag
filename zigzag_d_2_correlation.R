@@ -1,4 +1,4 @@
-# Here we study the convergence of the Zig-Zag algorithm for N((0,0), (1, a, a, s^2))
+# Here we study the convergence of the Zig-Zag algorithm for N((0,0), (1, as, as, s^2))
 
 # The values of s to consider
 Ss <- c(1, 2)
@@ -9,7 +9,7 @@ As <- c(0, 0.25, 0.5)
 # The number of experiments for each s and a
 N <- 1000
 
-# Finctions f to use to evaluate convergence
+# Functions f to use to evaluate convergence
 Fs <- c(
   function (x, y) { abs(x); },
   function (x, y) { x^2; },
